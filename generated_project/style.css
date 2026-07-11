@@ -1,0 +1,174 @@
+/*
+  style.css – Calculator UI styling
+  -------------------------------------------------
+  This stylesheet defines a clean, responsive design for the
+  simple calculator defined in index.html. All class and ID names
+  match the markup so that script.js can query the elements without
+  modification.
+*/
+
+/* -------------------------------------------------
+   CSS Custom Properties (variables)
+   ------------------------------------------------- */
+:root {
+  /* Primary palette */
+  --primary-color: #2c3e50;           /* dark slate */
+  --accent-color: #3498db;            /* bright blue */
+  --bg-color: #f5f7fa;                /* light gray‑blue */
+  --display-bg: #ecf0f1;              /* slightly darker for display */
+  --button-bg: #ffffff;               /* default button background */
+  --button-border: #dcdcdc;           /* light border */
+  --button-shadow: rgba(0, 0, 0, 0.1);
+
+  /* Functional button colors */
+  --clear-color: #e74c3c;             /* red for clear */
+  --backspace-color: #e67e22;         /* orange for backspace */
+  --operator-color: #9b59b6;          /* purple for operators */
+  --equals-color: #27ae60;            /* green for equals */
+  --digit-color: var(--primary-color);
+
+  /* Sizing */
+  --calc-width: 320px;                /* default fixed width */
+  --calc-max-width: 100%;
+  --calc-padding: 1.5rem;
+  --calc-radius: 0.75rem;
+  --display-font-size: 2rem;
+  --button-font-size: 1.25rem;
+  --button-padding: 0.75rem;
+  --grid-gap: 0.5rem;
+}
+
+/* -------------------------------------------------
+   Global resets & body styling
+   ------------------------------------------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--bg-color);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--primary-color);
+}
+
+/* -------------------------------------------------
+   Calculator container
+   ------------------------------------------------- */
+#calculator {
+  width: var(--calc-width);
+  max-width: var(--calc-max-width);
+  padding: var(--calc-padding);
+  background: #fff;
+  border-radius: var(--calc-radius);
+  box-shadow: 0 4px 12px var(--button-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: var(--grid-gap);
+}
+
+/* -------------------------------------------------
+   Display area
+   ------------------------------------------------- */
+.display {
+  background: var(--display-bg);
+  padding: 0.75rem 1rem;
+  font-size: var(--display-font-size);
+  text-align: right;
+  border-radius: calc(var(--calc-radius) / 2);
+  overflow-x: auto;   /* allow long numbers to scroll */
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* -------------------------------------------------
+   Buttons grid
+   ------------------------------------------------- */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--grid-gap);
+}
+
+/* -------------------------------------------------
+   Base button style
+   ------------------------------------------------- */
+button.btn {
+  background: var(--button-bg);
+  border: 1px solid var(--button-border);
+  border-radius: 0.5rem;
+  font-size: var(--button-font-size);
+  padding: var(--button-padding);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+  color: var(--digit-color);
+}
+
+button.btn:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+button.btn:hover {
+  background: var(--accent-color);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* -------------------------------------------------
+   Specific button types
+   ------------------------------------------------- */
+button.clear {
+  background: var(--clear-color);
+  color: #fff;
+}
+
+button.backspace {
+  background: var(--backspace-color);
+  color: #fff;
+}
+
+button.operator {
+  background: var(--operator-color);
+  color: #fff;
+}
+
+button.equals {
+  background: var(--equals-color);
+  color: #fff;
+  grid-column: span 2; /* make equals button a bit larger */
+}
+
+button.decimal {
+  background: var(--button-bg);
+  color: var(--digit-color);
+}
+
+/* Digit buttons keep the default styling but we can be explicit */
+button.digit {
+  background: var(--button-bg);
+  color: var(--digit-color);
+}
+
+/* -------------------------------------------------
+   Responsive adjustments
+   ------------------------------------------------- */
+@media (max-width: 600px) {
+  :root {
+    --calc-width: 100%;
+    --calc-padding: 1rem;
+    --display-font-size: 1.5rem;
+    --button-font-size: 1rem;
+    --button-padding: 0.6rem;
+    --grid-gap: 0.4rem;
+  }
+
+  #calculator {
+    box-shadow: none; /* reduce visual weight on small screens */
+  }
+}
